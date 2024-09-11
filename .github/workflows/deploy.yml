@@ -1,0 +1,32 @@
+name: Build and Deploy to Beta
+
+on:
+  push:
+    branches:
+      - test  # Adjust this to your dev branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22.8.0'  # Use your required Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Next.js app
+      run: npm run build
+
+    - name: Deploy to beta.empaka.pe
+      run: |
+        rsync -avz --delete-after .next/ empakape@tesla.vivawebhost.com:/home/empakape/beta.empaka.pe
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}

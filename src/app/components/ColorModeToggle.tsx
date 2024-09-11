@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const ColorModeToggle = () => {
     // use theme from local storage if available or set light theme
     const [theme, setTheme] = useState(
-        localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+        typeof window !== "undefined" && localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
     );
 
     // update state on toggle
