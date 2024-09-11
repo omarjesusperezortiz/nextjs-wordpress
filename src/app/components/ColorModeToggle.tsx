@@ -1,14 +1,12 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 const ColorModeToggle = () => {
-    // use theme from local storage if available or set light theme
     const [theme, setTheme] = useState(
         typeof window !== "undefined" && localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
     );
 
-    // update state on toggle
-    const handleToggle = (e: { target: { checked: any; }; }) => {
+    const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             setTheme("dark");
         } else {
@@ -16,15 +14,14 @@ const ColorModeToggle = () => {
         }
     };
 
-    // set theme state in localstorage on mount & also update localstorage on state change
     useEffect(() => {
-        // @ts-ignore
+        // @ts-expect-error
         localStorage.setItem("theme", theme);
         const localTheme = localStorage.getItem("theme");
-        // add custom data-theme attribute to html tag required to update theme using DaisyUI
-        // @ts-ignore
+        // @ts-expect-error
         document.querySelector("html").setAttribute("data-theme", localTheme);
     }, [theme]);
+
 
     return (
         <button className="btn btn-square btn-ghost">
