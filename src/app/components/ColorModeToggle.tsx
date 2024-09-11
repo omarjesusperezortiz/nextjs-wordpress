@@ -15,10 +15,12 @@ const ColorModeToggle = () => {
     };
 
     useEffect(() => {
-        // @ts-expect-error
+        // @ts-expect-error Description: localStorage.getItem might return null but we handle it elsewhere
         localStorage.setItem("theme", theme);
+
         const localTheme = localStorage.getItem("theme");
-        // @ts-expect-error
+
+        // @ts-expect-error Description: We know that data-theme might not exist initially
         document.querySelector("html").setAttribute("data-theme", localTheme);
     }, [theme]);
 
