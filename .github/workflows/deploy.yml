@@ -35,6 +35,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         protocol: ftp  # or change to ftps if your server supports it
+        port: 21  # or change to 22 if your server uses SFTP
         local-dir: .next/static/
 
 
