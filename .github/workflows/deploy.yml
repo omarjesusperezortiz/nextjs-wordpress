@@ -28,11 +28,12 @@ jobs:
     - name: Build Next.js app
       run: npm run build
 
-    - name: Deploy to beta.empaka.pe
-      run: |
-        rsync -avz --delete-after -e "ssh -p 6543 -o StrictHostKeyChecking=no" .next/ empakape@tesla.vivawebhost.com:/home/empakape/beta.empaka.pe
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        protocol: ftp  # or change to ftps if your server supports it
 
 
