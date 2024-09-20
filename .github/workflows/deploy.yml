@@ -5,10 +5,6 @@ on:
     branches:
       - test  # Adjust this to your dev branch
 
-  pull_request:
-    branches:
-      - test  # Optionally trigger when a pull request is merged into the 'test' branch
-
 jobs:
   build:
     runs-on: ubuntu-latest
